@@ -25,7 +25,7 @@ class Calc_program_v2():
         
         while self.loop_count != self.count: # 참일 경우 반복
             
-
+            
             for all_index, all_value in enumerate(self.input_data):
                 if all_value == '(':
                     self.open_pos_list.append(all_index)
@@ -34,10 +34,9 @@ class Calc_program_v2():
                 elif all_value == ')':
                     self.close_pos_list.append(all_index)
                     print('괄호 닫힘 위치 : ',self.close_pos_list)
-            if self.open_pos_list[0] 
-
-
-
+                    self.open_pos = self.open_pos_list[-1]+1
+                    self.close_pos = self.close_pos_list[0]
+                    break
 
             for filter in self.input_data [self.open_pos:self.close_pos]: 
                 print('괄호안 수식 : ',self.input_data [self.open_pos:self.close_pos])
@@ -58,16 +57,17 @@ class Calc_program_v2():
                         self.int1 = 0
 
                     if self.lead >= 2 or self.input_data[0] == '+' or self.input_data[0] == '-' or self.input_data[0] == '*' or self.input_data[0] == '^' or self.input_data[0] == '/':
-                        self.int_refined_data.pop()
-                        if self.str_data[-1] != '√':
-                            self.str_data.pop()
+                        self.int_refined_data.pop()                       
+                        self.str_data.pop()
 
             for index, value in enumerate(self.int_data): # 번호표를 붙여줌
                     self.int1 += value * 10 ** index # 자릿수에 맞게 곱연산을 함
+
             else:
                 self.int_refined_data.append(self.int1)
                 self.int_data.clear() # 기존에 받은 값을 초기화시킴
                 self.int1 = 0
+
             while bool(len(self.int_refined_data)) == True:
 
                 if  '^' in self.str_data :
@@ -109,6 +109,9 @@ class Calc_program_v2():
             self.loop_count += 1
             self.int_refined_data = []
             self.list_input_data = list(self.input_data)
+            self.close_pos_list.clear()
+            self.open_pos_list.clear()
+
 
         program = Calc_program_v1(self.input_data)
         return program.power()

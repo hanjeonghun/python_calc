@@ -83,5 +83,5 @@ class Calc_program_v1():
         return self.int_refined_data[0]
 
 if __name__ == '__main__':
-    a = Calc_program(input('값을 입력해주세요 : '))     
+    a = Calc_program_v1(input('값을 입력해주세요 : '))     
     a.power() 
