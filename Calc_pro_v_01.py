@@ -11,7 +11,6 @@ class Calc_program_v1():
         self.str_add = '' # 문자의 위치 값
         self.lead = 0
 
-
     def power(self):
         for filter in self.input_data:
             if filter == str(0) or filter == str(1) or filter == str(2) or filter == str(3) or filter == str(4) or filter == str(5) or filter == str(6) or filter == str(7) or filter == str(8) or filter == str(9):
@@ -33,9 +32,7 @@ class Calc_program_v1():
 
                 if self.lead >= 2 or self.input_data[0] == '+' or self.input_data[0] == '-' or self.input_data[0] == '*' or self.input_data[0] == '^' or self.input_data[0] == '/':
                     self.int_refined_data.pop()                   
-                    self.str_data.pop()
-                    
-                       
+                    self.str_data.pop()             
 
         for index, value in enumerate(self.int_data): # 번호표를 붙여줌
                     self.int1 += value * 10 ** index # 자릿수에 맞게 곱연산을 함
