@@ -44,7 +44,7 @@ class Calc_program_v2():
                     self.int_data.insert(0,int(filter)) # 값 정수형으로 추가
                     self.lead = 0
                 
-                elif filter == '+' or filter == '-' or filter == '^' or filter == '*' or filter == '/' : 
+                elif filter == '+' or filter == '`' or filter == '^' or filter == '*' or filter == '/' : 
                     self.str_data.append(filter) # 값 문자형으로 추가
                     self.lead = self.lead + 1
 
@@ -56,9 +56,12 @@ class Calc_program_v2():
                         self.int_data.clear() # 기존에 받은 값을 초기화시킴
                         self.int1 = 0
 
-                    if self.lead >= 2 or self.input_data[0] == '+' or self.input_data[0] == '-' or self.input_data[0] == '*' or self.input_data[0] == '^' or self.input_data[0] == '/':
-                        self.int_refined_data.pop()                       
+                    if self.lead >= 2 or self.input_data[0] == '+' or self.input_data[0] == '*' or self.input_data[0] == '^' or self.input_data[0] == '/':
+                        self.int_refined_data.pop()                   
                         self.str_data.pop()
+                
+                    elif self.input_data[0] == '`':
+                        self.int_data.insert(0,int(0))
 
             for index, value in enumerate(self.int_data): # 번호표를 붙여줌
                     self.int1 += value * 10 ** index # 자릿수에 맞게 곱연산을 함
@@ -78,25 +81,33 @@ class Calc_program_v2():
 
                 elif  '*' in self.str_data :
                     self.str_add = self.str_data.index('*')
+                    if self.input_data[self.input_data.find('*')+1:self.input_data.find('*')+2] == '`':
+                        self.int_refined_data[self.str_add + 1] = self.int_refined_data[self.str_add + 1] * -1
                     self.int_refined_data[self.str_add] = self.int_refined_data[self.str_add] * self.int_refined_data[self.str_add + 1]
                     self.int_refined_data.pop(self.str_add +1)
                     self.str_data.pop(self.str_add)
 
                 elif  '/' in self.str_data :
                     self.str_add = self.str_data.index('/')
+                    if self.input_data[self.input_data.find('/')+1:self.input_data.find('/')+2] == '`':
+                        self.int_refined_data[self.str_add + 1] = self.int_refined_data[self.str_add + 1] * -1
+
                     self.int_refined_data[self.str_add] = self.int_refined_data[self.str_add] / self.int_refined_data[self.str_add + 1]
                     self.int_refined_data.pop(self.str_add +1)
                     self.str_data.pop(self.str_add)
 
                 elif  '+' in self.str_data :
                     self.str_add = self.str_data.index('+')
+                    if self.input_data[self.input_data.find('+')+1:self.input_data.find('+')+2] == '`':
+                        self.int_refined_data[self.str_add + 1] = self.int_refined_data[self.str_add + 1] * -1
+
                     self.int_refined_data[self.str_add] = self.int_refined_data[self.str_add] + self.int_refined_data[self.str_add + 1]
                     self.int_refined_data.pop(self.str_add +1)
                     self.str_data.pop(self.str_add)
 
-                elif  '-' in self.str_data :
-                    self.str_add = self.str_data.index('-')
-                    self.int_refined_data[self.str_add] = self.int_refined_data[self.str_add] - self.int_refined_data[self.str_add + 1]
+                elif  '`' in self.str_data :
+                    self.str_add = self.str_data.index('`')
+                    self.int_refined_data[self.str_add] = self.int_refined_data[self.str_add] + self.int_refined_data[self.str_add + 1] * -1
                     self.int_refined_data.pop(self.str_add +1)
                     self.str_data.pop(self.str_add)
 

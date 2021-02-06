@@ -87,7 +87,7 @@ class MyApp(QWidget):
 
         btn_min = QPushButton('-', self) # 버튼 빼기
         btn_min.setGeometry(1+(btn_x+1)*3, widget_y-(btn_y+1)*3, btn_x, btn_y)
-        btn_min.clicked.connect(lambda :self.input_data.append('-'))
+        btn_min.clicked.connect(lambda :self.input_data.append('`'))
         btn_min.clicked.connect(self.btn_click)
         btn_min.setShortcut("-")
 # 4층
@@ -178,9 +178,11 @@ class MyApp(QWidget):
         self.setWindowIcon(QIcon('C:\\Users\\eoehd\\Pictures\\Calc_icon.png')) # 아이콘을 조정한다.
         self.show() # 위젯을 본다.
 
+# 함수
     def btn_click(self,input_data): # 서브값 출력
         self.sub_output = (''.join(self.input_data)) # 리스트 모음 수식 출력값
-        self.sub_display.setText(self.sub_output) # 서브 출력값
+        self.R_sub_output = self.sub_output.replace('`','-')
+        self.sub_display.setText(self.R_sub_output) # 서브 출력값
         self.sub_display.repaint()
 
     def result(self,input_data): # 결과값 출력
