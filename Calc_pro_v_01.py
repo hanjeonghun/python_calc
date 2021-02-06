@@ -17,7 +17,7 @@ class Calc_program_v1():
                 self.int_data.insert(0,int(filter)) # 값 정수형으로 추가
                 self.lead = 0
             
-            elif filter == '+' or filter == '`' or filter == '^' or filter == '*' or filter == '/':
+            elif filter == '+' or filter == '-' or filter == '`' or filter == '^' or filter == '*' or filter == '/':
                 self.str_data.append(filter) # 값 문자형으로 추가
                 self.lead = self.lead + 1
                 print(self.str_data)
@@ -46,6 +46,7 @@ class Calc_program_v1():
             self.int_data.clear() # 기존에 받은 값을 초기화시킴
             self.int1 = 0
 
+
         while bool(len(self.int_refined_data)) == True: # 값이 남아있으면
 
             if  '^' in self.str_data :
@@ -54,11 +55,13 @@ class Calc_program_v1():
                 self.int_refined_data.pop(self.str_add +1)
                 self.str_data.pop(self.str_add)
 
+
             elif  '*' in self.str_data :
                 self.str_add = self.str_data.index('*')
                 if self.input_data[self.input_data.find('*')+1:self.input_data.find('*')+2] == '`':
                     self.int_refined_data[self.str_add + 1] = self.int_refined_data[self.str_add + 1] * -1
                     
+                
                 self.int_refined_data[self.str_add] = self.int_refined_data[self.str_add] * self.int_refined_data[self.str_add + 1]
                 self.int_refined_data.pop(self.str_add +1)
                 self.str_data.pop(self.str_add)

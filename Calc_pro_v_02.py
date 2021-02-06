@@ -29,17 +29,15 @@ class Calc_program_v2():
             for all_index, all_value in enumerate(self.input_data):
                 if all_value == '(':
                     self.open_pos_list.append(all_index)
-                    print('괄호 열림 위치 : ',self.open_pos_list)
 
                 elif all_value == ')':
-                    self.close_pos_list.append(all_index)
-                    print('괄호 닫힘 위치 : ',self.close_pos_list)
+                    self.close_pos_list.append(all_index)                
                     self.open_pos = self.open_pos_list[-1]+1
                     self.close_pos = self.close_pos_list[0]
                     break
 
             for filter in self.input_data [self.open_pos:self.close_pos]: 
-                print('괄호안 수식 : ',self.input_data [self.open_pos:self.close_pos])
+               
                 if filter == str(0) or filter == str(1) or filter == str(2) or filter == str(3) or filter == str(4) or filter == str(5) or filter == str(6) or filter == str(7) or filter == str(8) or filter == str(9):
                     self.int_data.insert(0,int(filter)) # 값 정수형으로 추가
                     self.lead = 0
@@ -70,12 +68,13 @@ class Calc_program_v2():
                 self.int_refined_data.append(self.int1)
                 self.int_data.clear() # 기존에 받은 값을 초기화시킴
                 self.int1 = 0
-
+           
             while bool(len(self.int_refined_data)) == True:
-
+        
                 if  '^' in self.str_data :
                     self.str_add = self.str_data.index('^')
                     self.int_refined_data[self.str_add] = self.int_refined_data[self.str_add] ** self.int_refined_data[self.str_add + 1]
+                    
                     self.int_refined_data.pop(self.str_add +1)
                     self.str_data.pop(self.str_add)
 
@@ -83,6 +82,7 @@ class Calc_program_v2():
                     self.str_add = self.str_data.index('*')
                     if self.input_data[self.input_data.find('*')+1:self.input_data.find('*')+2] == '`':
                         self.int_refined_data[self.str_add + 1] = self.int_refined_data[self.str_add + 1] * -1
+                    
                     self.int_refined_data[self.str_add] = self.int_refined_data[self.str_add] * self.int_refined_data[self.str_add + 1]
                     self.int_refined_data.pop(self.str_add +1)
                     self.str_data.pop(self.str_add)
@@ -96,18 +96,18 @@ class Calc_program_v2():
                     self.int_refined_data.pop(self.str_add +1)
                     self.str_data.pop(self.str_add)
 
+                elif  '`' in self.str_data :
+                    self.str_add = self.str_data.index('`')
+                    self.int_refined_data[self.str_add] = self.int_refined_data[self.str_add] - self.int_refined_data[self.str_add + 1]
+                    self.int_refined_data.pop(self.str_add +1)
+                    self.str_data.pop(self.str_add)
+
                 elif  '+' in self.str_data :
                     self.str_add = self.str_data.index('+')
                     if self.input_data[self.input_data.find('+')+1:self.input_data.find('+')+2] == '`':
                         self.int_refined_data[self.str_add + 1] = self.int_refined_data[self.str_add + 1] * -1
-
+                    
                     self.int_refined_data[self.str_add] = self.int_refined_data[self.str_add] + self.int_refined_data[self.str_add + 1]
-                    self.int_refined_data.pop(self.str_add +1)
-                    self.str_data.pop(self.str_add)
-
-                elif  '`' in self.str_data :
-                    self.str_add = self.str_data.index('`')
-                    self.int_refined_data[self.str_add] = self.int_refined_data[self.str_add] + self.int_refined_data[self.str_add + 1] * -1
                     self.int_refined_data.pop(self.str_add +1)
                     self.str_data.pop(self.str_add)
 
@@ -116,15 +116,14 @@ class Calc_program_v2():
                     self.input_data = ''.join(self.list_input_data)
                     break
 
-            print('인풋값 : ',self.input_data)        
+       
             self.loop_count += 1
             self.int_refined_data = []
             self.list_input_data = list(self.input_data)
             self.close_pos_list.clear()
             self.open_pos_list.clear()
 
-
-        program = Calc_program_v1(self.input_data)
+        program = Calc_program_v1(self.input_data.replace("-",'`'))
         return program.power()
 
 if __name__ == '__main__':
