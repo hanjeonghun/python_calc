@@ -38,8 +38,10 @@ class MyApp(QWidget):
 
         btn_equal = QPushButton('=',self) # 버튼 [엔터]
         btn_equal.setGeometry(1+(btn_x+1)*3, widget_y-(btn_y+1)*1, btn_x, btn_y)
+        btn_equal.clicked.connect(lambda :self.input_data.append('='))
+        btn_equal.clicked.connect(self.btn_click)
         btn_equal.clicked.connect(self.result)
-        enter = QKeySequence(Qt.Key_Return)
+        enter = QKeySequence(Qt.Key_Return) # 의미 모름
         btn_equal.setShortcut(enter)
 # 2층
         btn1 = QPushButton('1', self) # 버튼 1
@@ -129,8 +131,8 @@ class MyApp(QWidget):
 
         btn_root = QPushButton('√x', self) # 버튼 null
         btn_root.setGeometry(1+(btn_x+1)*2, widget_y-(btn_y+1)*5, btn_x, btn_y)
+        btn_root.clicked.connect(lambda :self.input_data.append('√'))
         btn_root.clicked.connect(self.btn_click)
-
 
         btn_divison = QPushButton('/',self) # 버튼 나누기
         btn_divison.setGeometry(1+(btn_x+1)*3, widget_y-(btn_y+1)*5, btn_x, btn_y)
@@ -177,14 +179,19 @@ class MyApp(QWidget):
         self.resize(widget_x, widget_y) # 위젯이 크기
         self.setWindowIcon(QIcon('C:\\Users\\eoehd\\Pictures\\Calc_icon.png')) # 아이콘을 조정한다.
         self.show() # 위젯을 본다.
-
 # 함수
     def btn_click(self,input_data): # 서브값 출력
         self.sub_output = (''.join(self.input_data)) # 리스트 모음 수식 출력값
-        self.R_sub_output = self.sub_output.replace('`','-')
-        self.sub_display.setText(self.R_sub_output) # 서브 출력값
+        self.test_sub_output = (''.join(self.input_data))      
+        for index, value in enumerate(self.test_sub_output):
+            if value == '+' or value == '`' or value == '*' or value == '/' or value == '^':
+                self.R_index.append(index)
+        self.show_sub_output = self.sub_output.replace('`','-').replace('=','')
+        self.sub_display.setText(self.show_sub_output) # 서브 출력값
         self.sub_display.repaint()
 
+                
+        
     def result(self,input_data): # 결과값 출력
         if '(' in self.sub_output:
             program_v2 = Calc_program_v2(self.sub_output)
@@ -194,7 +201,6 @@ class MyApp(QWidget):
             program = Calc_program_v1(self.sub_output)
             self.result_display.setText(str(program.power()))
         self.result_display.repaint()
-
 
     def clear_entry(self, input_data):
         print(self.input_data)
@@ -207,14 +213,9 @@ class MyApp(QWidget):
                self.sub_display.setText(self.sub_output) # 서브 출력값
                self.sub_display.repaint()
                break
-    
 
         self.sub_display.repaint()           
         self.result_display.repaint()
-
-                        
-
-
 
 app = QApplication(sys.argv)
 ex = MyApp()
