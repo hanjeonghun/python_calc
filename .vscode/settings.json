@@ -1,0 +1,32 @@
+{
+    
+    "[json]": {
+        
+        "editor.quickSuggestions": {
+            "strings": true
+            
+        },
+        
+        "editor.suggest.insertMode": "replace"
+    },
+    "code-runner.preserveFocus": false,
+    "code-runner.runInTerminal": true,
+    "code-runner.languageIdToFileExtensionMap": {
+        
+        "bat": ".bat",
+        "powershell": ".ps1",
+        "typescript": ".ts"
+    },
+
+    "[python]": {
+
+        "editor.wordBasedSuggestions": false
+    },
+    "editor.fontLigatures": null,   
+    "terminal.integrated.fontWeight": null,
+    "debug.javascript.autoAttachSmartPattern": [
+        "!**/{node_modules,npm-global,.yarn,.nvm}/**",
+        "**/$KNOWN_TOOLS$/**",
+        "\"code-runner.preservefocus\": false,"
+    ]
+}
